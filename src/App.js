@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import "./App.css";
 
 import firebase from "firebase/app";
@@ -9,18 +9,7 @@ import "firebase/analytics";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyC5qx5wkh8QQH96Q08jVorwJpms0Kws_3E",
-  authDomain: "superchat-using-react.firebaseapp.com",
-  projectId: "superchat-using-react",
-  storageBucket: "superchat-using-react.appspot.com",
-  messagingSenderId: "711056266642",
-  appId: "1:711056266642:web:4732e031c02c3589985d4b",
-  measurementId: "G-9T9HBFDMSF",
-});
-
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+import { auth, firestore } from "./firebase/init";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -28,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Firebase Chat App</h1>
+        <h1>Chat</h1>
         <SignOut />
       </header>
 
@@ -68,9 +57,13 @@ function SignOut() {
 function ChatRoom() {
   const dummy = useRef();
   const messagesRef = firestore.collection("messages");
-  const query = messagesRef.orderBy("createdAt").limit(25);
+  const query = messagesRef.orderBy("createdAt", "desc").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
+  const reverseMessage = useMemo(
+    () => (messages ? messages.reverse() : null),
+    messages
+  );
 
   const [formValue, setFormValue] = useState("");
 
@@ -93,8 +86,10 @@ function ChatRoom() {
   return (
     <>
       <main>
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        {reverseMessage &&
+          reverseMessage.map((msg) => (
+            <ChatMessage key={msg.id} message={msg} />
+          ))}
 
         <span ref={dummy}></span>
       </main>
