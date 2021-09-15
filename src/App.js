@@ -62,7 +62,7 @@ function ChatRoom() {
   const [messages] = useCollectionData(query, { idField: "id" });
   const reverseMessage = useMemo(
     () => (messages ? messages.reverse() : null),
-    messages
+    [messages]
   );
 
   const [formValue, setFormValue] = useState("");
