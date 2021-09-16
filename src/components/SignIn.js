@@ -37,10 +37,6 @@ export default function SignIn() {
         >
           Sign in with Google
         </Button>
-        <Typography className={classes.text}>
-          Do not violate the community guidelines or you will be banned for
-          life!
-        </Typography>
       </Box>
     </Container>
   );
