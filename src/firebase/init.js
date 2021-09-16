@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import "firebase/analytics";
 
 firebase.initializeApp({
   apiKey: "AIzaSyC5qx5wkh8QQH96Q08jVorwJpms0Kws_3E",
@@ -15,3 +14,16 @@ firebase.initializeApp({
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+
+export const signInWithGoogle = async (e) => {
+  try {
+    e.preventDefault();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithPopup(provider);
+  } catch (error) {
+    console.error("err", error);
+  }
+};
+
+export const messageClass = (uid) =>
+  uid === auth.currentUser.uid ? "sent" : "received";
