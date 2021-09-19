@@ -7,13 +7,14 @@ import "firebase/auth";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "../firebase/init";
-import { Box, Button, makeStyles, TextField } from "@material-ui/core";
+import { Box, Button, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   textarea: {
     height: "80vh",
     overflowY: "scroll",
     backgroundColor: "#2a0944",
+    padding: "0 1em",
   },
   formarea: {
     height: "10vh",

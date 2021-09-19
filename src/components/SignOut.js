@@ -1,4 +1,4 @@
-import { Box, makeStyles, Typography, Button } from "@material-ui/core";
+import { Box, makeStyles, Button } from "@material-ui/core";
 import React from "react";
 import { auth } from "../firebase/init";
 

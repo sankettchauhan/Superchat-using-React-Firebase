@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button, Container, makeStyles } from "@material-ui/core";
 import React from "react";
 import { signInWithGoogle } from "../firebase/init";
 
